@@ -1,22 +1,22 @@
 function getDB {
     
     dbs=`ls ./databases`
-    echo ${dbs[0]} ${dbs[1]}
+    # echo ${dbs[0]} ${dbs[1]}
     if [ $1 = '-p' ] 
     then
         typeset -i increment=1
-        typeset dataToReturn[]
+        # typeset dataToReturn[]
         for db in $dbs 
         do
             echo "$increment ) $db"
-            dataToReturn[$increment]=$db
+            # dataToReturn[$increment]=$db
             increment=$increment+1
         done
         
     # else 
         # return $x
     fi
-    return $dbs
+    # return $dbs
 }
     
 
@@ -37,8 +37,8 @@ function connecteDB {
 }
 function dropDB {
     getDB -p
-    echo $?
-    read -p 'Enter The Number Of Database To Delete: ' inp
-    # rm -r ./databases/$inp
+    # echo $?
+    read -p 'Enter The Name Of Database To Delete: ' inp
+    rm -r ./databases/$inp
     # echo ${alldb[*]}
 }
