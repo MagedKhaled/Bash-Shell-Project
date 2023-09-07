@@ -1,0 +1,7 @@
+student id│int│1│PK
+student fname│text│2
+student lname│text│3
+student address│text│4
+teacher id│int│1│PK
+teacher name│text│2
+teacher major│text│3

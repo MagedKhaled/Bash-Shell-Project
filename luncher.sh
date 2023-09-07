@@ -1,6 +1,7 @@
 #!/bin/bash
 
 source ddl_functions.sh
+source connectDB.sh
 
 
 while true 

@@ -1,44 +1,48 @@
-function getDB {
-    
-    dbs=`ls ./databases`
-    # echo ${dbs[0]} ${dbs[1]}
-    if [ $1 = '-p' ] 
-    then
-        typeset -i increment=1
-        # typeset dataToReturn[]
-        for db in $dbs 
-        do
-            echo "$increment ) $db"
-            # dataToReturn[$increment]=$db
-            increment=$increment+1
-        done
-        
-    # else 
-        # return $x
-    fi
-    # return $dbs
-}
-    
+source test_functions.sh
+
+
 
 
 
 
 function createDB {
     read -p 'Enter The Name Of Your Database To Create: ' inp
-    mkdir ./databases/$inp
-    echo Create Database
+    
+    if $(start_with_string $inp) && $(isExist $inp $(ls ./databases)); 
+    then
+        echo "invalide input"
+    else
+        mkdir -p ./databases/$inp/tables/
+        echo $inp Database is created successfully;
+    fi
 }
+
 function listDB {
-    getDB -p
+    listOfDB=`ls ./databases`
+    getDB $listOfDB
     
 }
 function connecteDB {
     echo Connect To Database 
 }
 function dropDB {
-    getDB -p
-    # echo $?
-    read -p 'Enter The Name Of Database To Delete: ' inp
-    rm -r ./databases/$inp
-    # echo ${alldb[*]}
+    listOfDB=$(ls ./databases)
+    getDB $listOfDB
+    listOfDB=($listOfDB) 
+    numOfDB=${#listOfDB[@]}
+    if [ $numOfDB -gt 0 ]; then
+        read -p 'Enter The Number Of Database To Delete: ' inp
+        
+        if [[ $inp =~ [1-9] ]] && [ $inp -le $numOfDB ] && [ $inp -gt 0 ]; then
+            deleteDB=${listOfDB[(($inp-1))]}
+            rm -r "./databases/$deleteDB"
+            echo "Database $deleteDB is deleted successfully"
+        else
+            echo "Invalide Input"
+        fi
+    else
+        echo "No Database To Delete"
+    fi    
 }
+
+
