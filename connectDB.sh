@@ -3,6 +3,8 @@
 source ddl_functions.sh
 source createtable.sh
 source insertTB.sh
+source select.sh
+source updateTable.sh
 
 
 
@@ -49,9 +51,9 @@ function connecteDB(){
             2) clear;listTB ;;
             3) echo Drop Table ;;
             4) insertTB ;;
-            5) echo Select From Table ;;
+            5) clear;selection ;;
             6) echo Delet From Table ;;
-            7) echo Update Table ;;
+            7) clear;updateTB ;;
             8) break ;;
             *) echo Invalid Choice ;;
 
