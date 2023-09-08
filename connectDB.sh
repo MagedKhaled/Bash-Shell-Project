@@ -2,12 +2,16 @@
 
 source ddl_functions.sh
 source createtable.sh
+source insertTB.sh
 
 
 
 function connecteDB(){
+    echo -e 'Available Databases: \n\n'
     listOfDB=$(ls ./databases)
     getDB $listOfDB
+    echo -e '\n'
+
     listOfDB=($listOfDB) 
     numOfDB=${#listOfDB[@]}
     if [ $numOfDB -gt 0 ]; then
@@ -42,9 +46,9 @@ function connecteDB(){
         read -p "Make Your Choice: " inp
         case $inp in 
             1) createtable ;;
-            2) echo List Tables ;;
+            2) clear;listTB ;;
             3) echo Drop Table ;;
-            4) echo Insert Inot Table ;;
+            4) insertTB ;;
             5) echo Select From Table ;;
             6) echo Delet From Table ;;
             7) echo Update Table ;;

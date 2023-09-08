@@ -15,10 +15,10 @@ echo '5)Exit'
 
 read -p "Make Your Choice: " inp
 case $inp in 
-1) createDB ;;
-2) listDB ;;
-3) connecteDB ;;
-4) dropDB ;;
+1) clear;createDB ;;
+2) clear;listDB ;;
+3) clear;connecteDB ;;
+4) clear;dropDB ;;
 5) break ;;
 *) echo invald choice;;
 esac

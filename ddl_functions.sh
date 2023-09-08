@@ -18,8 +18,11 @@ function createDB {
 }
 
 function listDB {
+    echo -e 'Available Databases: \n\n'
     listOfDB=`ls ./databases`
     getDB $listOfDB
+    echo -e '\n'
+
     
 }
 function connecteDB {
@@ -43,6 +46,16 @@ function dropDB {
     else
         echo "No Database To Delete"
     fi    
+}
+
+
+
+function listTB {
+    listOfTB=`ls ./tables`
+    echo -e 'Available Tables: \n\n'
+    getDB $listOfTB
+    echo -e '\n'
+    
 }
 
 

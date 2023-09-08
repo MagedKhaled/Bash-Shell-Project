@@ -37,14 +37,15 @@ function createtable {
 
                 if [ $i -eq 1 ]; then
                     echo "$table $colname│$type│1│PK" >> $description
-                    # echo -n "$colname│" >> "./tables/$table" #change
+                    echo -n "$colname│" >> "./tables/$table" #change
 
                     
                 else
-                    echo "$table $colname│$type│$i" >> $description
-                    # echo -n "$colnamec" >> "./tables/$table" #change
+                    echo "$table $colname│$type│$i│" >> $description
+                    echo -n "$colname│" >> "./tables/$table" #change
                 fi
             done
+            echo "" >> "./tables/$table" #change
             echo -e "\tTable '$table' created successfully."
         else
             echo "Invalid input. Please enter a valid number of columns."

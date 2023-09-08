@@ -1,0 +1,3 @@
+staff id│int│1│PK
+staff name│text│2│
+staff salary│int│3│
