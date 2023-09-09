@@ -1,3 +1,5 @@
 when enter empty to column name it accepts
 select needs rewrite
 in update table : if the condition matches the first line ... it changes the line
+drop table
+ps3  in create Table

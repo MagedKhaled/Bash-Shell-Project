@@ -20,9 +20,9 @@ function getDB {
 
 
 function isExist {
-    echo $1 
-    echo $2
-    echo [[ $2 == *"$2"* ]]
+    # echo $1 
+    # echo $2
+    echo [[ $2 == *"$1"* ]]
 }
 
 

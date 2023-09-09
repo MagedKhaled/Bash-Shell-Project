@@ -8,12 +8,16 @@ source test_functions.sh
 function createDB {
     read -p 'Enter The Name Of Your Database To Create: ' inp
     
-    if $(start_with_string $inp) && $(isExist $inp $(ls ./databases)); 
+    if [[ -e ./databases/$inp ]]; 
     then
-        echo "invalide input"
+        echo "database is exist"
     else
-        mkdir -p ./databases/$inp/tables/
-        echo $inp Database is created successfully;
+        if [[ $inp =~ ^[a-z|A-Z] ]]; then
+            mkdir -p ./databases/$inp/tables/
+            echo $inp Database is created successfully;
+        else
+            echo invalid choice
+        fi
     fi
 }
 

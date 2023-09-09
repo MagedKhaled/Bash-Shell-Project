@@ -4,10 +4,16 @@ function createtable {
     clear
     description="./description"
     read -p "Please enter the table name to create: " table
-    if [[ -e "./$table" ]]; then
+    if [[ -e "./tables/$table" ]]; then
         echo "This table already exists. Please try again."
+        read "press enter to continue"
         createtable
     else
+        if ! [[ $table =~ ^[a-z|A-Z] ]]; then
+            echo "invalid input. Please try again."
+            read "press enter to continue"
+            createtable
+        fi
         touch "./tables/$table"  ##====change it
         echo "Table created successfully."
         read -p "Enter the number of columns: " columns

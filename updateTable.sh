@@ -9,8 +9,8 @@ function editTB { #tableName tableConnectedName colName seperator colValue colTo
     colToChange=$6
     newValue=$7
 
-    colNum=$(awk -F'│' '$1 == "'$tableConnectedName' '$colName'" {print $3}' ./description)
-    colToChangeNum=$(awk -F'│' '$1 == "'$tableConnectedName' '$colToChange'" {print $3}' ./description)
+    colNum=$(awk -F'│' '$1 == "'$tableConnectedName' '$colName'" {if (NR>=2){print $3}}' ./description)
+    colToChangeNum=$(awk -F'│' '$1 == "'$tableConnectedName' '$colToChange'" {if (NR>=2){print $3}}' ./description)
     # numOfLines=$(cat $tableName | wc -l )
     awk -F'│' -v OFS='│' -v colNum="$colNum" -v colValue="$colValue" -v colToChangeNum="$colToChangeNum" -v newValue="$newValue" '$colNum '$seperator' colValue {$colToChangeNum = newValue}1' "$tableName" > tmpfile
     mv tmpfile "$tableName"

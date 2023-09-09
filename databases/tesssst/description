@@ -1,0 +1,3 @@
+student id│int│1│PK
+student name│text│2│
+student phone│int│3│
