@@ -4,7 +4,8 @@ source ddl_functions.sh
 source connectDB.sh
 
 
-while true 
+function luncher {
+    while true 
 do
 echo '1)Create Database'
 echo '2)List Database'
@@ -26,3 +27,5 @@ esac
 read -p "Press Enter To Continue " inp
 clear
 done
+}
+luncher

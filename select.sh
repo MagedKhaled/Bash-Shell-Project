@@ -84,6 +84,7 @@ function selection {
                 awk -F '│' -v id="$value" -v colname="$colname" 'NR==1 { for(i=1; i<=NF; i++) if($i == colname) colidx=i } $1 == id { print $1 "|" $colidx }' "$table"
                 break;;
             5)  clear;
+                break 2
                 tableActions
                 ;;
             *)  echo "Wrong choice"

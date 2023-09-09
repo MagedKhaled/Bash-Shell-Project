@@ -30,7 +30,10 @@ function tableActions {
             5) clear;selection ;;
             6) clear; deletefromtable ;;
             7) clear;updateTB ;;
-            8) break ;;
+            8) break 
+                luncher
+
+            ;;
             *) echo Invalid Choice ;;
 
         esac
