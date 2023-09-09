@@ -3,21 +3,25 @@
 function droptable {
     while true; do
         echo "Choose which table do you want to delete from the following or quit:"
-        tables=$(ls | grep -v "description")
+        tables=$(ls ./tables)
+        PS3="Select a table to delete or quit: "
         select table in $tables "Quit"; do
+        
             case $table in
                 "Quit")
                     echo "Exiting..."
-                    exit 0
+                    #########
+                    break 2
+                     tableActions
                     ;;
                 *)
-                    if [[ -f $table ]]; then
-                        if [[ -s $table ]]; then
+                    if [[ -f "./tables/$table" ]]; then
+                        if [[ -s "./tables/$table"  ]]; then
                             while true; do
                                 read -p "This table is not empty, are you sure to delete it [y/n]: " answer
                                 if [[ $answer == "Y" || $answer == "y" ]]; then
-                                    rm "$table"
-                                    awk -v table="$table" '$1 != table' "description" > temp_file && mv temp_file "description"
+                                    rm "./tables/$table" 
+                                    awk -v table="$table"  '$1 != table' "description" > temp_file && mv temp_file "description"
                                     echo "Table '$table' has been deleted."
                                     break
                                 elif [[ $answer == "n" || $answer == "N" ]]; then
@@ -28,7 +32,7 @@ function droptable {
                                 fi
                             done
                         else
-                            rm "$table"
+                            rm "./tables/$table" 
                             awk -v table="$table" '$1 != table' "description" > temp_file && mv temp_file "description"
                             echo "Table '$table' has been deleted."
                         fi
@@ -42,5 +46,4 @@ function droptable {
     done
 }
 
-droptable
 

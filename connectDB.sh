@@ -6,6 +6,7 @@ source insertTB.sh
 source select.sh
 source updateTable.sh
 source deletefromtable.sh
+source droptable.sh
 
 
 function tableActions {
@@ -23,10 +24,10 @@ function tableActions {
 
         read -p "Make Your Choice: " inp
         case $inp in 
-            1) createtable ;;
+            1) clear;createtable ;;
             2) clear;listTB ;;
-            3) echo Drop Table ;;
-            4) insertTB ;;
+            3) clear; droptable ;;
+            4) clear;insertTB ;;
             5) clear;selection ;;
             6) clear; deletefromtable ;;
             7) clear;updateTB ;;
