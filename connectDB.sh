@@ -1,10 +1,45 @@
-#!/bin/bash
+#!/bin/bash -x
 
 source ddl_functions.sh
 source createtable.sh
 source insertTB.sh
 source select.sh
 source updateTable.sh
+source deletefromtable.sh
+
+
+function tableActions {
+    while true 
+    do
+        echo '1)Create Table'
+        echo '2)List Tables'
+        echo '3)Drop Table'
+        echo '4)Insert Inot Table'
+        echo '5)Select From Table'
+        echo '6)Delet From Table'
+        echo '7)Update Table'
+        echo '8)Exit'
+
+
+        read -p "Make Your Choice: " inp
+        case $inp in 
+            1) createtable ;;
+            2) clear;listTB ;;
+            3) echo Drop Table ;;
+            4) insertTB ;;
+            5) clear;selection ;;
+            6) clear; deletefromtable ;;
+            7) clear;updateTB ;;
+            8) break ;;
+            *) echo Invalid Choice ;;
+
+        esac
+
+        read -p "Press Enter To Continue " inp
+        clear
+    done
+
+}
 
 
 
@@ -33,33 +68,7 @@ function connecteDB(){
     clear
     cd $databaseConnected
 
-    while true 
-    do
-        echo '1)Create Table'
-        echo '2)List Tables'
-        echo '3)Drop Table'
-        echo '4)Insert Inot Table'
-        echo '5)Select From Table'
-        echo '6)Delet From Table'
-        echo '7)Update Table'
-        echo '8)Exit'
+tableActions
 
-
-        read -p "Make Your Choice: " inp
-        case $inp in 
-            1) createtable ;;
-            2) clear;listTB ;;
-            3) echo Drop Table ;;
-            4) insertTB ;;
-            5) clear;selection ;;
-            6) echo Delet From Table ;;
-            7) clear;updateTB ;;
-            8) break ;;
-            *) echo Invalid Choice ;;
-
-        esac
-
-        read -p "Press Enter To Continue " inp
-        clear
-    done
 }
+
