@@ -29,10 +29,6 @@ function createtable {
             break
             fi
                 done
-
-
-
-      
             echo -e "You are going to create your table."
             echo -e "\t=======================CAUTION============================== \t"
             echo -e "\t TO AVOID ERRORS, YOUR FIRST COLUMN WILL BE PK FOR THIS TABLE\t"

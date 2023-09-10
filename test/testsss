@@ -1,5 +1,0 @@
-#!/bin/bash
-numofcol=$(grep "name" "description" | awk -F '│'  '{print $3}')
-
-echo "$numofcol"
-	#	awk -F '│' -v colname="$colname" 'NR==1 { for(i=1; i<=NF; i++) if($i == colname) colidx=i } { print $colidx }' "$table" | awk -F '│' -v num="$numofcol" '{print $num}'

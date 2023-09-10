@@ -1,9 +1,7 @@
 #!/bin/bash
 
 function checkcolumn {
-    
-    while true; do
-        
+    while true; do    
         echo "Enter column name from the following:"
         echo $(grep "$tableConnectedName" "description" | awk -F '│' '{print $1}' | cut -d' ' -f2)
 
@@ -90,8 +88,7 @@ function selection {
             *)  echo "Wrong choice"
                 break;;
             
-        esac
-        
+        esac       
     done
     read -p "press enter to continue" _
     clear

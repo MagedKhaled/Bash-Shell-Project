@@ -1,10 +1,5 @@
+#!/bin/bash
 source test_functions.sh
-
-
-
-
-
-
 function createDB {
     read -p 'Enter The Name Of Your Database To Create: ' inp
     
@@ -26,8 +21,6 @@ function listDB {
     listOfDB=`ls ./databases`
     getDB $listOfDB
     echo -e '\n'
-
-    
 }
 function connecteDB {
     echo Connect To Database 
@@ -52,14 +45,11 @@ function dropDB {
     fi    
 }
 
-
-
 function listTB {
     listOfTB=`ls ./tables`
     echo -e 'Available Tables: \n\n'
     getDB $listOfTB
-    echo -e '\n'
-    
+    echo -e '\n'  
 }
 
 

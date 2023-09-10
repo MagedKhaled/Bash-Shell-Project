@@ -1,8 +1,8 @@
-#!/bin/bash -x
+#!/bin/bash
 
 source ddl_functions.sh
 source createtable.sh
-source insertTB.sh
+source insert_into_DB.sh
 source select.sh
 source updateTable.sh
 source deletefromtable.sh
@@ -26,10 +26,10 @@ function tableActions {
         case $inp in 
             1) clear;createtable ;;
             2) clear;listTB ;;
-            3) clear; droptable ;;
+            3) clear;droptable ;;
             4) clear;insertTB ;;
             5) clear;selection ;;
-            6) clear; deletefromtable ;;
+            6) clear;deletefromtable ;;
             7) clear;updateTB ;;
             8) break 
                 luncher
