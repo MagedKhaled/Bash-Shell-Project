@@ -16,46 +16,48 @@ function createtable {
         touch "./tables/$table" 
         echo "Table created successfully."
 
-          num='^[0-9]+$'
+        num='^[0-9]+$'
 
         read -p "Enter the number of columns: " columns
-          while true
-           do
-           if [[ -z $columns|| $columns == *" "* || ! $columns =~ $num ]];
-           then
+        while true
+        do
+           if [[ -z $columns|| $columns == *" "* || ! $columns =~ $num ]];then
                 echo "column number can not by empty or spaces and only numbers accepted, try again"
                 read -p "Enter the number of columns: " columns
             else
-            break
+                break
             fi
                 done
             echo -e "You are going to create your table."
             echo -e "\t=======================CAUTION============================== \t"
             echo -e "\t TO AVOID ERRORS, YOUR FIRST COLUMN WILL BE PK FOR THIS TABLE\t"
             echo -e "\t=======================CAUTION============================== \t"
-           
 
             for ((i = 1; i <= $columns; i++)); do
 
                 read -p "Enter the name of column number $i: " colname
                 while true
-                 do
-                 if [[ -z $colname || $colname == *" "* || $colname =~ $num  ]] ;
-                 then
-                echo "column name can not by empty or spaces or number, try again"
-                read -p "Enter the name of column number $i: " colname
-                else
-                break
-                fi
+                do
+                    if [[ -z $colname || $colname == *" "* || $colname =~ $num  ]] ;
+                        then
+                        echo "column name can not by empty or spaces or number, try again"
+                        read -p "Enter the name of column number $i: " colname
+                    else
+                        break
+                    fi
                 done
 
 
                 while grep -q "$table $colname" "$description";
-                	do
+                do
                     echo "This column already exists. Please try again."
                     read -p "Enter the name of column number $i: " colname
                 done
-                    PS3="Select an option (enter the number): "
+
+
+                PS3="Select an option (enter the number): "
+
+                
                 select choice in "integer" "text"; do
                     case $REPLY in
                     1) type="int"; break ;;
@@ -76,7 +78,7 @@ function createtable {
             done
             echo "" >> "./tables/$table" #change
             echo -e "\tTable '$table' created successfully."
-      
+    
     fi
 }
 

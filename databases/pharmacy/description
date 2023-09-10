@@ -1,0 +1,8 @@
+staff id│int│1│PK
+staff name│text│2│
+staff salary│int│3│
+doctor id│int│1│PK
+doctor name│text│2│
+doctor phone│int│3│
+clients id│int│1│PK
+clients name│text│2│

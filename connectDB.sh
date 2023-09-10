@@ -5,7 +5,7 @@ source createtable.sh
 source insert_into_DB.sh
 source select.sh
 source updateTable.sh
-source deletefromtable.sh
+# source deletefromtable.sh
 source droptable.sh
 
 
@@ -31,10 +31,7 @@ function tableActions {
             5) clear;selection ;;
             6) clear;deletefromtable ;;
             7) clear;updateTB ;;
-            8) break 
-                luncher
-
-            ;;
+            8) cd ../../; break;;
             *) echo Invalid Choice ;;
 
         esac

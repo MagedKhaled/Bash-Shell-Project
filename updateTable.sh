@@ -9,23 +9,56 @@ function editTB { #tableName tableConnectedName colName seperator colValue colTo
     colToChange=$6
     newValue=$7
 
-    colNum=$(awk -F'│' '$1 == "'$tableConnectedName' '$colName'" {if (NR>=2){print $3}}' ./description)
+    colNum=$(awk -F'│' '$1 == "'$tableConnectedName' '$colName'" {print $3}' ./description)
     
-    colToChangeNum=$(awk -F'│' '$1 == "'$tableConnectedName' '$colToChange'" {if (NR>=2){print $3}}' ./description)
+    colToChangeNum=$(awk -F'│' '$1 == "'$tableConnectedName' '$colToChange'" {print $3}' ./description)
     # numOfLines=$(cat $tableName | wc -l )
-    echo $colToChangeNum
-    if [ ${colToChangeNum[0]} -eq 1 ]; then
-        colToChangeNum=("${colToChangeNum[@]:1}")
-    fi
-    echo $colToChangeNum
 
-    awk -F'│' -v OFS='│' -v colNum="$colNum" -v colValue="$colValue" -v colToChangeNum="$colToChangeNum" -v newValue="$newValue" '$colNum '$seperator' colValue {$colToChangeNum = newValue}1' "$tableName" > tmpfile
+    echo $colToChangeNum
+    # awk -F'│' -v OFS='│' -v colNum="$colNum" -v colValue="$colValue" -v colToChangeNum="$colToChangeNum" -v newValue="$newValue" '$colNum '$seperator' colValue {$colToChangeNum = newValue}1' "$tableName" > tmpfile
+    echo colNum="$colNum" seperator="$seperator" colValue="$colValue" colToChangeNum="$colToChangeNum" newValue="$newValue" 
+     
+    awk -F'│' -v OFS='│' -v colNum="$colNum" -v seperator="$seperator" -v colValue="$colValue" -v colToChangeNum="$colToChangeNum" -v newValue="$newValue" '
+    {
+        if (seperator == "=="){
+            if ($colNum == colValue && NR != 1) {
+            $colToChangeNum = newValue
+        }
+        print
+        }
+        else if (seperator == ">"){
+            if ($colNum > colValue && NR != 1) {
+            $colToChangeNum = newValue
+        }
+        print
+        }
+        else if (seperator == "<"){
+            if ($colNum < colValue && NR != 1) {
+            $colToChangeNum = newValue
+        }
+        print
+        }
+        
+    }' "$tableName" > tmpfile
+
+
+
+
+
+
+
     mv tmpfile "$tableName"
 }
 
 function updateTB {
-    
     listOfTB=$(ls ./tables)
+    if [ $(wc -l <<< $listOfTB) -gt 1 ]; then 
+        listOfTB=$(echo "$originalString" | tr -d '\n')
+        echo asdk$listOfTB
+    else 
+        echo equal
+
+    fi
     echo -e 'Available Tables: \n\n'
     getDB $listOfTB
     echo -e '\n'
@@ -45,7 +78,7 @@ function updateTB {
             fi
         else
             echo "No Tables To Connect"
-            continue
+            break
         fi  
     break;
     done
