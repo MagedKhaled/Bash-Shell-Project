@@ -10,14 +10,10 @@ function editTB { #tableName tableConnectedName colName seperator colValue colTo
     newValue=$7
 
     colNum=$(awk -F'│' '$1 == "'$tableConnectedName' '$colName'" {print $3}' ./description)
-    
     colToChangeNum=$(awk -F'│' '$1 == "'$tableConnectedName' '$colToChange'" {print $3}' ./description)
-    # numOfLines=$(cat $tableName | wc -l )
 
-    echo $colToChangeNum
-    # awk -F'│' -v OFS='│' -v colNum="$colNum" -v colValue="$colValue" -v colToChangeNum="$colToChangeNum" -v newValue="$newValue" '$colNum '$seperator' colValue {$colToChangeNum = newValue}1' "$tableName" > tmpfile
-    echo colNum="$colNum" seperator="$seperator" colValue="$colValue" colToChangeNum="$colToChangeNum" newValue="$newValue" 
-     
+
+
     awk -F'│' -v OFS='│' -v colNum="$colNum" -v seperator="$seperator" -v colValue="$colValue" -v colToChangeNum="$colToChangeNum" -v newValue="$newValue" '
     {
         if (seperator == "=="){
@@ -40,13 +36,6 @@ function editTB { #tableName tableConnectedName colName seperator colValue colTo
         }
         
     }' "$tableName" > tmpfile
-
-
-
-
-
-
-
     mv tmpfile "$tableName"
 }
 
