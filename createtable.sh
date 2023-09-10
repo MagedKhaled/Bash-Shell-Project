@@ -7,6 +7,10 @@ function createtable {
         echo "This table already exists. Please try again."
         read -p "press enter to continue: " _
         createtable
+    elif [[ $table == *│* ]]; then
+        echo "Invalid Input"
+        read -p "press enter to continue: " _
+        createtable
     else
         if ! [[ $table =~ ^[a-z|A-Z] ]]; then
             echo "invalid input. Please try again."
@@ -42,16 +46,21 @@ function createtable {
                         then
                         echo "column name can not by empty or spaces or number, try again"
                         read -p "Enter the name of column number $i: " colname
+                    elif [[ $table == *│* ]]; then
+                        echo "Invalid Input"
+                        read -p "Enter the name of column number $i: " colname
+                        
                     else
                         break
                     fi
-                done
+                
 
 
-                while grep -q "$table $colname" "$description";
-                do
+                if grep -q "$table $colname" "$description";then
+                
                     echo "This column already exists. Please try again."
                     read -p "Enter the name of column number $i: " colname
+                fi
                 done
 
 
