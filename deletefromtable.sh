@@ -1,16 +1,14 @@
 #!/bin/bash
-
-
 function deletefromtable {
-    # while true; do
-
+    while true; do
         PS3="Select a table to delete from or quit: "
         select table in $(ls "./tables") "Quit"; do
             case $table in
                 "Quit")
-                clear ;
-                echo goback
-                tableActions
+                    clear ;
+                    echo "Going back"
+                    tableActions
+                    return
                     ;;
                 *)
                     if [[ -f "./tables/$table" ]]; then
@@ -20,58 +18,62 @@ function deletefromtable {
                             select action in "Delete all from table" "Delete row" "Back"; do
                                 case $action in
                                     "Delete all from table")
-                                        # PS3="Are you sure [y/n]: "
-                                        while true 
-                                        do
-                                            read -p "Are you sure [ y/n ]: " userAnswer
-                                            case $userAnswer in
-                                                "y")
-                                                    awk 'NR==1 {print; next} {next} 1' "./tables/$table" > temp_file && mv temp_file "./tables/$table"
-                                                    break
-                                                    # deletefromtable
-                                                    ;;
-                                                "n" | "N")
-                                                    break
-                                                    # deletefromtable
-                                                    ;;
-                                                *)
-                                                    echo "Invalid option, try again"
-                                                    ;;
-                                            esac
+                                        while true; do
+                                            read -p "Are you sure [y/n]: " userAnswer
+                                            if [[ $userAnswer == "y" || $userAnswer == "Y" ]]; then
+                                                awk 'NR==1 {print; next} {next} 1' "./tables/$table" > temp_file && mv temp_file "./tables/$table"
+                                                echo "All rows from the table '$table' have been deleted."
+                                                break
+                                            elif [[ $userAnswer == "n" || $userAnswer == "N" ]]; then
+                                                break
+                                            else
+                                                echo "Invalid option, try again"
+                                            fi
                                         done
-                                        
                                         ;;
                                     "Delete row")
                                         while true; do
-                                            # PS3="Please enter the primary key for the row or [Q] to quit: "
                                             read -p "Please enter the primary key for the row or [Q] to quit: " pk
+                                            
                                             if [[ $pk == "Q" || $pk == "q" ]]; then
-                                                # clear
-                                                # deletefromtable
-                                                break 
-
+                                                break
                                             else
-                                                if awk -F '│' -v pk="$pk" '$1 == pk' "./tables/$table" >/dev/null; then
-                                                    awk -F '│' -v pk="$pk" '$1 != pk' "./tables/$table" > temp_file2 && mv temp_file2 "./tables/$table"
-                                                    echo -e "Row with primary key '$pk' has been deleted \n"
-                                                    read -p "Press Enter to continue" _
-                                                    # clear
-                                                    break 
+                                                found=false
+                                                awk -F '│' -v pk="$pk" '$1 == pk' "./tables/$table" > temp_file
 
-                                                else
-                                                    echo "Primary key '$pk' does not exist in the table."
+                                                if [[ -s temp_file ]]; then
+                                                    echo "Found the following row:"
+                                                    cat temp_file
+                                                    read -p "Do you want to delete this row [y/n]? " confirm
+
+                                                    if [[ $confirm == "y" || $confirm == "Y" ]]; then
+                                                        awk -F '│' -v pk="$pk" '$1 != pk' "./tables/$table" > temp_file2 && mv temp_file2 "./tables/$table"
+                                                        echo "Row with primary key '$pk' has been deleted."
+                                                        found=true
+                                                        read -p "Press Enter to continue" _
+                                                        clear
+                                                    else
+                                                        echo "Row with primary key '$pk' was not deleted."
+                                                    fi
                                                 fi
+
+                                                if [[ $found == false ]]; then
+                                                    clear
+                                                    echo "Primary key '$pk' does not exist in the table."
+                                                    echo "Try again."
+                                                fi
+
+                                                rm temp_file
                                             fi
                                         done
                                         ;;
                                     "Back")
-                                        break 2
+                                        return
                                         ;;
                                     *)
                                         echo "Invalid Option, please try again"
                                         ;;
                                 esac
-                                # clear
                             done
                         else
                             echo "The table is empty"
@@ -83,7 +85,7 @@ function deletefromtable {
             esac
             clear
         done
-    # done
+    done
 }
 
 # deletefromtable
