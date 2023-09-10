@@ -1,12 +1,13 @@
 #!/bin/bash
 
-source ddl_functions.sh
+source main_menu_functions.sh
 source createtable.sh
 source insert_into_DB.sh
 source select.sh
 source updateTable.sh
-# source deletefromtable.sh
 source droptable.sh
+source deletefromtable.sh
+
 
 
 function tableActions {
@@ -15,7 +16,7 @@ function tableActions {
         echo '1)Create Table'
         echo '2)List Tables'
         echo '3)Drop Table'
-        echo '4)Insert Inot Table'
+        echo '4)Insert Into Table'
         echo '5)Select From Table'
         echo '6)Delet From Table'
         echo '7)Update Table'

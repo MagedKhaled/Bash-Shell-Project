@@ -1,5 +1,5 @@
 #!/bin/bash
-source test_functions.sh
+source validation_functions.sh
 function createDB {
     read -p 'Enter The Name Of Your Database To Create: ' inp
     

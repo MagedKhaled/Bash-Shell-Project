@@ -2,7 +2,7 @@
 
 function droptable {
     while true; do
-        echo "Choose which table do you want to delete from the following or quit:"
+        echo -e "Choose which table do you want to delete from the following or quit: \n"
         tables=$(ls ./tables)
         PS3="Select a table to delete or quit: "
         select table in $tables "Quit"; do

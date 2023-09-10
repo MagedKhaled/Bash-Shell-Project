@@ -2,13 +2,14 @@
 
 function checkcolumn {
     while true; do    
-        echo "Enter column name from the following:"
+        echo -e "Enter column name from the following:\n"
         echo $(grep "$tableConnectedName" "description" | awk -F '│' '{print $1}' | cut -d' ' -f2)
 
         read colname
         if grep -q "$colname" "description"; then
             break
         else
+            clear
             echo "The column name is not valid, try again."
         fi
     done

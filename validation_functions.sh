@@ -1,3 +1,4 @@
+#!/bin/bash
 function start_with_string {
 
     if [[ $1 =~ ^[a-z|A-Z] ]]; then
@@ -31,7 +32,7 @@ function isExist {
 
 function checkValid {
     description=$(grep "$1" description)
-    colType=$( cut -f2 -d'│' <<< "$description" )
+    colType=$( awk -F'│' '{print $2}' <<< "$description" )
     typeIsValid=false
     if [ $colType = 'int' ]; then 
         if [[ $2 =~ ^[0-9]+$ ]] || [ "$2" = "" ]; then
@@ -48,7 +49,7 @@ function checkValid {
     fi
 
     
-    PK=$( cut -f4 -d'│' <<< "$description" )
+    PK=$( awk -F'│' '{print $4}' <<< "$description")
     isPK=false
     if [ "$PK" = 'PK' ]; then
         isPK=true
@@ -60,7 +61,7 @@ function checkValid {
         else 
             return 12
         fi
-        isExist=$(cat "$3" | cut -f1 -d│ | grep -w $2)
+        isExist=$( awk -F'│' -v pattern="$2" '$1 == pattern' "$3" )
         if ! [ "$isExist" ]; then 
             isunique=true
         else 

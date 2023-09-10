@@ -1,4 +1,5 @@
-source ./test_functions.sh
+#!/bin/bash
+source validation_functions.sh
 
 function editTB { #tableName tableConnectedName colName seperator colValue colToChange newValue
     tableName=$1
@@ -123,16 +124,10 @@ function updateTB {
             echo Invalide condition
             continue
         fi
-
-
-
         colValue=$(cut -f2 -d"$sep" <<< "$condition")
 
         break   
     done
-
-
-
 
     # read -p "Which column you want to change: " colToChange
     echo -e 'Available columns: \n\n'
@@ -175,11 +170,6 @@ function updateTB {
             esac
         fi
     done
-
-
-    
-
-    
 
     editTB $tableConnected $tableConnectedName $colName $seperator $colValue $colToChange $newValue
 

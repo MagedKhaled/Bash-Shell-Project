@@ -1,7 +1,7 @@
 #!/bin/bash
 
-source ddl_functions.sh
-source connectDB.sh
+source validation_functions.sh
+source tables_operation_menu.sh
 
 
 function luncher {

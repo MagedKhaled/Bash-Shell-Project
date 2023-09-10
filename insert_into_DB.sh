@@ -1,5 +1,5 @@
 #!/bin/bash
-source test_functions.sh
+source validation_functions.sh
 
 function insertTB {
     clear
@@ -30,7 +30,7 @@ function insertTB {
     numberCol=$(echo "$cols" | grep -o '│' | wc -l)
     dataEnery=''
     for ((colNum = 1; colNum <= numberCol; colNum++)); do
-        colName=$( cut -f"$colNum" -d'│' <<< "$cols" )
+        colName=$( awk -F'│' -v colNum="$colNum" '{print $colNum}' <<< "$cols" )
         read -p "Enter The Value Of $colName: " colValue
         checkValid "$tableConnectedName $colName" $colValue $tableConnected
         statu=$?
@@ -48,7 +48,7 @@ function insertTB {
     done
     echo $dataEnery >> $tableConnected;
     echo -e "\n\nThe record saved successfully.\n"
-    read -p "Enter another value (y,n)?" inp
+    read -p "Enter another value (y,n)? " inp
     if [ $inp = 'y' ] || [ $inp = 'Y' ]; then 
         continue;
     else  

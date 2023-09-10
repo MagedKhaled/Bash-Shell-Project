@@ -2,7 +2,6 @@
 
 
 function deletefromtable {
-    cd ./databases/testDB
     while true; do
 
         PS3="Select a table to delete from or quit: "
@@ -15,6 +14,7 @@ function deletefromtable {
                 *)
                     if [[ -f "./tables/$table" ]]; then
                         if [[ -s "./tables/$table" ]]; then
+                            clear
                             PS3="Select an action: "
                             select action in "Delete all from table" "Delete row" "Back"; do
                                 case $action in
@@ -37,18 +37,25 @@ function deletefromtable {
                                                     ;;
                                             esac
                                         done
+                                        
                                         ;;
                                     "Delete row")
-                                        PS3="Please enter the primary key for the row or [Q] to quit: "
                                         while true; do
+                                            PS3="Please enter the primary key for the row or [Q] to quit: "
                                             read -p "$PS3" pk
                                             if [[ $pk == "Q" || $pk == "q" ]]; then
-                                                break
+                                                clear
+                                                deletefromtable
+                                                break 
+
                                             else
                                                 if awk -F '│' -v pk="$pk" '$1 == pk' "./tables/$table" >/dev/null; then
                                                     awk -F '│' -v pk="$pk" '$1 != pk' "./tables/$table" > temp_file2 && mv temp_file2 "./tables/$table"
-                                                    echo "Row with primary key '$pk' has been deleted"
-                                                    break
+                                                    echo -e "Row with primary key '$pk' has been deleted \n"
+                                                    read -p "Press Enter to continue" _
+                                                    clear
+                                                    break 
+
                                                 else
                                                     echo "Primary key '$pk' does not exist in the table."
                                                 fi
