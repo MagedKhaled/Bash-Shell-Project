@@ -2,13 +2,14 @@
 
 
 function deletefromtable {
-    while true; do
+    # while true; do
 
         PS3="Select a table to delete from or quit: "
         select table in $(ls "./tables") "Quit"; do
             case $table in
                 "Quit")
                 clear ;
+                echo goback
                 tableActions
                     ;;
                 *)
@@ -19,18 +20,19 @@ function deletefromtable {
                             select action in "Delete all from table" "Delete row" "Back"; do
                                 case $action in
                                     "Delete all from table")
-                                        PS3="Are you sure [y/n]: "
-                                        while true; do
-                                            read -p "$PS3" answer
-                                            case $answer in
-                                                "y" | "Y")
+                                        # PS3="Are you sure [y/n]: "
+                                        while true 
+                                        do
+                                            read -p "Are you sure [ y/n ]: " userAnswer
+                                            case $userAnswer in
+                                                "y")
                                                     awk 'NR==1 {print; next} {next} 1' "./tables/$table" > temp_file && mv temp_file "./tables/$table"
                                                     break
-                                                    deletefromtable
+                                                    # deletefromtable
                                                     ;;
                                                 "n" | "N")
                                                     break
-                                                    deletefromtable
+                                                    # deletefromtable
                                                     ;;
                                                 *)
                                                     echo "Invalid option, try again"
@@ -41,11 +43,11 @@ function deletefromtable {
                                         ;;
                                     "Delete row")
                                         while true; do
-                                            PS3="Please enter the primary key for the row or [Q] to quit: "
-                                            read -p "$PS3" pk
+                                            # PS3="Please enter the primary key for the row or [Q] to quit: "
+                                            read -p "Please enter the primary key for the row or [Q] to quit: " pk
                                             if [[ $pk == "Q" || $pk == "q" ]]; then
-                                                clear
-                                                deletefromtable
+                                                # clear
+                                                # deletefromtable
                                                 break 
 
                                             else
@@ -53,7 +55,7 @@ function deletefromtable {
                                                     awk -F '│' -v pk="$pk" '$1 != pk' "./tables/$table" > temp_file2 && mv temp_file2 "./tables/$table"
                                                     echo -e "Row with primary key '$pk' has been deleted \n"
                                                     read -p "Press Enter to continue" _
-                                                    clear
+                                                    # clear
                                                     break 
 
                                                 else
@@ -63,12 +65,13 @@ function deletefromtable {
                                         done
                                         ;;
                                     "Back")
-                                        return
+                                        break 2
                                         ;;
                                     *)
-                                        echo "Invalid option, please try again"
+                                        echo "Invalid Option, please try again"
                                         ;;
                                 esac
+                                # clear
                             done
                         else
                             echo "The table is empty"
@@ -78,8 +81,9 @@ function deletefromtable {
                     fi
                     ;;
             esac
+            clear
         done
-    done
+    # done
 }
 
 # deletefromtable

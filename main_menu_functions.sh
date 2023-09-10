@@ -22,9 +22,9 @@ function listDB {
     getDB $listOfDB
     echo -e '\n'
 }
-function connecteDB {
-    echo Connect To Database 
-}
+# function connecteDB {
+#     echo Connect To Database 
+# }
 function dropDB {
     listOfDB=$(ls ./databases)
     getDB $listOfDB
